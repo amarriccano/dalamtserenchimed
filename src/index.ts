@@ -11,7 +11,8 @@ const app = express();
 
 // Allow requests from your Vue frontend
 app.use(cors({
-  origin: 'https://agwaanluwsan.pages.dev'
+  origin: ['https://agwaanluwsan.pages.dev', 'http://localhost:3000'],
+  optionsSuccessStatus: 200
 }));
 
 app.use(express.json());
