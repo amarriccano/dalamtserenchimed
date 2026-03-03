@@ -11,7 +11,7 @@ const app = express();
 
 // Allow requests from your Vue frontend
 app.use(cors({
-  origin: 'https://your-vue-app-url.render.com' // Replace with your actual frontend URL
+  origin: 'https://agwaanluwsan.pages.dev/'
 }));
 
 app.use(express.json());
