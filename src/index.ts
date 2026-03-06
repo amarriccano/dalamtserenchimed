@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// Allow requests from your Vue frontend
+// TODO Allow requests from your Vue frontend
 app.use(cors({
   origin: ['https://agwaanluwsan.pages.dev', 'http://localhost:3000'],
   optionsSuccessStatus: 200

@@ -25,13 +25,18 @@ const BookSchema = new Schema({
     author: { type: String, required: true },
     description: String,
     coverImage: String,
+    year: Number,
+    pages: Number,
+    publisher: String,
+    category: { type: String, enum: ['History'] },
+    language: { type: String, enum: ['Монгол', 'English']},
     variants: {
         type: [VariantSchema],
         validate: {
             validator: function(v: any[]) {
                 return v && v.length > 0;
             },
-            message: 'A book must have at least one variant.'
+            message: 'Алдаа #7625781'
         }
     }, 
     order: Number,
