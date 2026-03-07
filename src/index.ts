@@ -3,6 +3,7 @@ import cors from 'cors';
 import { connectDB } from './database.js';
 import adminModule from './apps/admin/index.js';
 import customerModule from './apps/customer/index.js'
+import authRouter from './core/utils/auth.js'
 // TODO import { verifyAdmin } from './apps/admin/middleware';
 
 const PORT = process.env.PORT || 3001;
@@ -22,6 +23,8 @@ await connectDB();
 app.use('/api/v1', customerModule);
 
 app.use('/api/v1/admin', adminModule);
+
+app.use('/api/v1/auth', authRouter)
 
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
 

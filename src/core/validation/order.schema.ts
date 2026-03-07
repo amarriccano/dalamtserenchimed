@@ -1,9 +1,16 @@
 import { z } from 'zod';
 
+const OrderItemVariantSchema = z.object({
+  format: z.enum(['hardcover', 'paperback', 'ebook', 'audiobook']),
+  isbn: z.string().optional(),
+  price: z.number().positive(),
+  sku: z.string().optional(),
+});
+
 const OrderItemSchema = z.object({
   bookId: z.string().min(1, "bookId is required"),
   title: z.string().min(1, "Title is required"),
-  price: z.number().positive("Price must be positive"),
+  variant: OrderItemVariantSchema,
   quantity: z.number().int().min(1, "Quantity must be at least 1"),
 });
 

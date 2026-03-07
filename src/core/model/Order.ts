@@ -1,9 +1,20 @@
 import mongoose from 'mongoose';
 
+const OrderItemVariantSchema = new mongoose.Schema({
+    format: { 
+        type: String, 
+        enum: ['hardcover', 'paperback', 'ebook', 'audiobook'], 
+        required: true 
+    },
+    isbn: { type: String },
+    price: { type: Number, required: true },
+    sku: { type: String }
+});
+
 const OrderItemSchema = new mongoose.Schema({
     bookId: { type: String, required: true }, // Format: "ID_format"
     title: { type: String, required: true },
-    price: { type: Number, required: true },
+    variant: { type: OrderItemVariantSchema, required: true },
     quantity: { type: Number, required: true }
 });
 
@@ -13,7 +24,13 @@ const OrderSchema = new mongoose.Schema({
     address: { type: String, required: true },
     items: [OrderItemSchema],
     total: { type: Number, required: true },
-    createdAt: { type: Date, default: Date.now }
+    status: {
+        type: String,
+        enum: ['pending', 'confirmed', 'delivered', 'cancelled'],
+        default: 'pending'
+    },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
 });
 
 export const Order = mongoose.model('Order', OrderSchema);
