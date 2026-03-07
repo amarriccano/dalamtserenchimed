@@ -2,8 +2,6 @@ import { Router } from 'express';
 import * as BookController from '../controllers/book.controllers.js';
 import { validate } from '../../../core/middleware/validate.js';
 import { 
-  CreateBookSchema, 
-  UpdateBookSchema, 
   GetBookSchema 
 } from '../../../core/validation/book.schema.js';
 
