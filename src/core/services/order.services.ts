@@ -33,19 +33,18 @@ export const OrderService = {
     const { items } = data;
 
     for (const item of items) {
-      const realBookId = item.bookId.split('_')[0];
-      const formatFromId = item.bookId.split('_')[1];
-
-      const book = await BookService.getBookById(realBookId);
+      const bookId = item.bookId
+      const bookVariant = item.variant
+      const book = await BookService.getBookById(bookId);
 
       if (!book) {
-        throw new Error(`Book not found: ${realBookId}`);
+        throw new Error(`Book not found: ${bookId}`);
       }
 
-      const variant = book.variants.find((v: any) => v.format === formatFromId);
+      const variant = book.variants.find((v: any) => v.format === bookVariant);
 
       if (!variant) {
-        throw new Error(`Format ${formatFromId} not available for ${book.title}`);
+        throw new Error(`Format ${bookVariant} not available for ${book.title}`);
       }
 
       if (variant.price !== item.price) {
