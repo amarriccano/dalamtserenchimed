@@ -31,6 +31,29 @@ export const createBook = async (req: Request, res: Response) => {
   }
 };
 
+export const createBooksBulk = async (req: Request, res: Response) => {
+  try {
+    const booksData = req.body;
+
+    // Validate that the input is an array
+    if (!Array.isArray(booksData)) {
+      return res.status(400).json({ 
+        error: "Invalid input: Expected an array of books." 
+      });
+    }
+
+    const newBooks = await BookService.createBooksBulk(booksData);
+    res.status(201).json({
+      message: `${newBooks.length} books were successfully added.`,
+      data: newBooks
+    });
+  } catch (error: any) {
+    res.status(400).json({ 
+      error: error.message || "An error occurred while creating books." 
+    });
+  }
+};
+
 export const updateBook = async (req: Request<BookParams>, res: Response) => {
   try {
     const { id } = req.params;

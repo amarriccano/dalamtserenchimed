@@ -15,6 +15,10 @@ export const BookService = {
     return await book.save();
   },
 
+  createBooksBulk: async (booksData: any[]) => {
+    return await Book.insertMany(booksData, { ordered: true });
+  },
+
   updateBook: async (id: string, data: Partial<IBook>) => {
     return await Book.findByIdAndUpdate(id, data, { 
       new: true, 
@@ -25,4 +29,6 @@ export const BookService = {
   deleteBook: async (id: string) => {
     return await Book.findByIdAndDelete(id);
   }
+
+
 };
