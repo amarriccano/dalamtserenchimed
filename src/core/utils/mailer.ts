@@ -1,36 +1,18 @@
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  family: 4,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-} as any)
-
-transporter.verify((error) => {
-  if (error) {
-    console.error('Mailer config error:', error)
-  } else {
-    console.log('Mailer ready')
-  }
-})
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendOrderNotification(order: any) {
   const itemsList = order.items
     .map((i: any) => `${i.title} x${i.quantity}`)
-    //TODO add items price
     .join('\n')
 
   try {
-    const info = await transporter.sendMail({
-      from: process.env.MAIL_USER,
+    const { data, error } = await resend.emails.send({
+    //TODO order id
+      from: 'onboarding@resend.dev', // works without domain verification
       to: 'amarbatsaikhan100@gmail.com',
       subject: `New Order — ${order.customerName}`,
-      //TODO assign orderId
       text: `
         New order received!
 
@@ -43,9 +25,10 @@ export async function sendOrderNotification(order: any) {
         ${itemsList}
 
         Total: ${order.total.toLocaleString()} ₮
-      `.trim(),
+            `.trim(),
     })
-    console.log('Mail sent:', info.messageId)
+    if (error) console.error('Resend error:', error)
+    else console.log('Mail sent:', data?.id)
   } catch (err) {
     console.error('sendMail error:', err)
   }
