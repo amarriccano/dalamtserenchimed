@@ -11,7 +11,7 @@ export async function sendOrderNotification(order: any) {
     const { data, error } = await resend.emails.send({
     //TODO order id
       from: 'onboarding@resend.dev', // works without domain verification
-      to: 'amarbatsaikhan100@gmail.com',
+      to: 'amarbatsaikhan90@gmail.com',
       subject: `New Order — ${order.customerName}`,
       text: `
         New order received!
