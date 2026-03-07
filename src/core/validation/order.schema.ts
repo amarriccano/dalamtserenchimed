@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const OrderItemSchema = z.object({
-  id: z.string().min(1, "bookId is required"),
+  bookId: z.string().min(1, "bookId is required"),
   title: z.string().min(1, "Title is required"),
   variant: z.enum(['hardcover', 'paperback', 'ebook', 'audiobook']),
   quantity: z.number().int().min(1, "Quantity must be at least 1"),

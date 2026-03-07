@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const OrderItemSchema = new mongoose.Schema({
-    id: { type: String, required: true }, // Format: "ID_format"
+    bookId: { type: String, required: true }, // Format: "ID_format"
     title: { type: String, required: true },
     variant: { 
         type: String, 
