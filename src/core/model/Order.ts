@@ -1,20 +1,13 @@
 import mongoose from 'mongoose';
 
-const OrderItemVariantSchema = new mongoose.Schema({
-    format: { 
+const OrderItemSchema = new mongoose.Schema({
+    id: { type: String, required: true }, // Format: "ID_format"
+    title: { type: String, required: true },
+    variant: { 
         type: String, 
         enum: ['hardcover', 'paperback', 'ebook', 'audiobook'], 
         required: true 
     },
-    isbn: { type: String },
-    price: { type: Number, required: true },
-    sku: { type: String }
-});
-
-const OrderItemSchema = new mongoose.Schema({
-    bookId: { type: String, required: true }, // Format: "ID_format"
-    title: { type: String, required: true },
-    variant: { type: OrderItemVariantSchema, required: true },
     quantity: { type: Number, required: true }
 });
 
