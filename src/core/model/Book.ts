@@ -1,11 +1,27 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+export interface IVariant {
+  format: 'hardcover' | 'paperback' | 'ebook' | 'audiobook';
+  isbn?: string;
+  price: number;
+  status: 'available' | 'soldout';
+  sku?: string;
+}
+
 export interface IBook extends Document {
-    title: string;
-    author: string;
-    price: number;
-    createdAt: Date;
-    updatedAt: Date;
+  title: string;
+  author: string;
+  description?: string;
+  coverImage?: string;
+  year?: number;
+  pages?: number;
+  publisher?: string;
+  category?: 'History';
+  language: 'Монгол' | 'English';
+  variants: IVariant[];
+  order?: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const VariantSchema = new Schema({
