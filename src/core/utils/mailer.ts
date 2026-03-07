@@ -10,26 +10,28 @@ const transporter = nodemailer.createTransport({
 
 export async function sendOrderNotification(order: any) {
   const itemsList = order.items
-    .map((i: any) => `${i.title} x${i.quantity} — ${i.price.toLocaleString()} ₮`)
+    //TODO .map((i: any) => `${i.title} x${i.quantity} — ${i.price.toLocaleString()} ₮`)
+    .map((i: any) => `${i.title} x${i.quantity}`)
     .join('\n')
 
+    //TODO assign order Id
   await transporter.sendMail({
     from: process.env.MAIL_USER,
-    to: process.env.MAIL_USER, // sends to yourself
-    subject: `New Order #${order.orderNumber} — ${order.customerName}`,
+    to: process.env.MAIL_USER, // TODO change to variable changeable on admin
+    subject: `New Order — ${order.customerName}`,
     text: `
-New order received!
+        New order received!
 
-Order #:   ${order.orderNumber}
-Customer:  ${order.customerName}
-Phone:     ${order.phone}
-Address:   ${order.address}
-${order.notes ? `Notes:     ${order.notes}` : ''}
+        Order #:   '1234'
+        Customer:  ${order.customerName}
+        Phone:     ${order.phone}
+        Address:   ${order.address}
+        ${order.notes ? `Notes:     ${order.notes}` : ''}
 
-Items:
-${itemsList}
+        Items:
+        ${itemsList}
 
-Total: ${order.total.toLocaleString()} ₮
-    `.trim(),
-  })
+        Total: ${order.total.toLocaleString()} ₮
+            `.trim(),
+        })
 }

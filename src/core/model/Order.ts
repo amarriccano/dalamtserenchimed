@@ -8,10 +8,12 @@ const OrderItemSchema = new mongoose.Schema({
         enum: ['hardcover', 'paperback', 'ebook', 'audiobook'], 
         required: true 
     },
+    //TODO price of books
     quantity: { type: Number, required: true }
 });
 
 const OrderSchema = new mongoose.Schema({
+    //TODO order id
     customerName: { type: String, required: true },
     phone: { type: String, required: true },
     address: { type: String, required: true },

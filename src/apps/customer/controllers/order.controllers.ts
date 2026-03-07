@@ -14,7 +14,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
 export const createOrder = async (req: Request, res: Response) => {
   try {
     const newOrder = await OrderService.createOrder(req.body);
-
+    console.log("new order: ", newOrder)
     sendOrderNotification(newOrder).catch(err =>
       console.error('Mail failed:', err)
     )
