@@ -21,6 +21,11 @@ router.post('/',
   BookController.createBook
 );
 
+router.post('/bulk',
+  //TODO validate([CreateBookSchema]),
+  BookController.createBooksBulk
+)
+
 router.patch('/:id', 
   validate(UpdateBookSchema), 
   BookController.updateBook
