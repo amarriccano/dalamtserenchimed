@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express';
 import { OrderService } from '../../../core/services/order.services.js';
+import { sendOrderNotification } from '../../../core/utils/mailer.js';
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
@@ -13,6 +14,11 @@ export const getAllOrders = async (req: Request, res: Response) => {
 export const createOrder = async (req: Request, res: Response) => {
   try {
     const newOrder = await OrderService.createOrder(req.body);
+
+    sendOrderNotification(newOrder).catch(err =>
+      console.error('Mail failed:', err)
+    )
+    
     res.status(201).json(newOrder);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
