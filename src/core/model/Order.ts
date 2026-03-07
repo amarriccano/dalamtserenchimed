@@ -14,6 +14,7 @@ const OrderItemSchema = new mongoose.Schema({
 
 const OrderSchema = new mongoose.Schema({
     //TODO order id
+    //TODO user email
     customerName: { type: String, required: true },
     phone: { type: String, required: true },
     address: { type: String, required: true },
