@@ -13,8 +13,14 @@ const app = express();
 // TODO Allow requests from your Vue frontend
 app.use(cors({
   origin: ['https://agwaanluwsan.pages.dev', 'http://localhost:3000'],
-  optionsSuccessStatus: 200
-}));
+  optionsSuccessStatus: 200,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}))
+
+// Handle preflight for all routes
+app.options('*', cors())
 
 app.use(express.json());
 
